@@ -1,0 +1,27 @@
+{
+  "name": "@xarples/oxygen-button",
+  "version": "0.0.0",
+  "main": "dist/index.ssr.js",
+  "browser": "dist/index.esm.js",
+  "module": "dist/index.esm.js",
+  "unpkg": "dist/index.min.js",
+  "license": "MIT",
+  "files": [
+    "dist/*",
+    "index.d.ts",
+    "src/**/*.vue"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "gitHead": "8c9f80a567a2b2e397704c18d5ffe859aa6c92e1",
+  "peerDependencies": {
+    "vue": "^3.0.0"
+  },
+  "devDependencies": {
+    "vue": "^3.0.0"
+  },
+  "@xarples/oxygen": {
+    "componentName": "OxygenButton"
+  }
+}

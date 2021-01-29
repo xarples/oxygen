@@ -1,0 +1,38 @@
+language: node_js
+
+node_js:
+  - "10"
+
+cache:
+  yarn: true
+  directories:
+    - "node_modules"
+
+before_install:
+  - curl -o- -L https://yarnpkg.com/install.sh | bash -s
+  - export PATH="$HOME/.yarn/bin:$PATH"
+
+before_script:
+  - yarn prepublish
+
+script:
+  - yarn test
+
+before_deploy:
+  - git config --global user.email ${GITHUB_EMAIL}
+  - git config --global user.name ${GITHUB_USER}
+  - git remote set-url origin "https://${GITHUB_TOKEN}@github.com/xarples/oxygen.git" > /dev/null 2>&1
+  - git checkout master
+  - echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" >> $HOME/.npmrc 2> /dev/null
+  - |
+    if [ "$TRAVIS_BRANCH" == "master" ]; then
+      yarn run lerna:version;
+    fi
+
+deploy:
+  - provider: script
+    script: "yarn run lerna:publish"
+    skip_cleanup: true
+    on:
+      node: "10"
+      branch: master
